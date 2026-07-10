@@ -51,9 +51,10 @@ By combining **Machine Learning**, **Natural Language Processing (NLP)**, and **
 | 🖼️ OCR Screenshot Analysis | Extracts and analyzes text directly from chat screenshots |
 | 🤖 ML Threat Prediction | Classifies threats using trained supervised models |
 | 📊 Risk Level Assessment | Assigns a risk score/severity to each analyzed conversation |
-| ☎️ Phone Number Extraction | Detects and validates phone numbers shared in conversations |
+| ☎️ Phone Number Checker | Validates suspicious phone numbers via the NumVerify API |
+| 🆘 Safety Helplines & Reporting | Surfaces Indian cyber safety helplines (1930, Childline 1098, etc.) and recommended next steps |
 | 🌐 Interactive Dashboard | Clean, simple Streamlit interface for non-technical users |
-| 📈 Model Comparison | Benchmarks multiple ML models side by side |
+| 📈 Model Comparison | Benchmarks all 6 trained classifiers side by side |
 
 ---
 
@@ -145,7 +146,7 @@ ChildSafe-AI/
 ├── data/                # Training/evaluation datasets
 ├── models/              # Saved/trained ML models
 ├── utils/               # Helper functions (OCR, preprocessing, etc.)
-└── screenshots/          # App screenshots & demo GIF for this README
+└── demo/          # App screenshots & demo GIF for this README
 ```
 
 ---
@@ -199,23 +200,21 @@ The app will open automatically at `http://localhost:8501`.
 
 ## 📸 Screenshots
 
-> 📁 Add your images to the `screenshots/` folder using the filenames below, then they'll render automatically here.
-
 | | |
 |---|---|
-| **Home Page** <br> `screenshots/home.png` | **Text Analysis** <br> `screenshots/text-analysis.png` |
-| ![Home](screenshots/home.png) | ![Text Analysis](screenshots/text-analysis.png) |
-| **OCR Analysis** <br> `screenshots/ocr-analysis.png` | **Prediction Result** <br> `screenshots/result.png` |
-| ![OCR Analysis](screenshots/ocr-analysis.png) | ![Result](screenshots/result.png) |
+| **Screenshot Analyzer** <br> `demo/screenshot-analyzer.png` | **Text Analyzer — Risk Analysis** <br> `demo/text-analysis.png` |
+| ![Screenshot Analyzer](demo/screenshot-analyzer.png) | ![Text Analysis](demo/text-analysis.png) |
+| **Detailed Results & Recommended Actions** <br> `demo/result.png` | **Phone Number Checker & Safety Helplines** <br> `demo/phone-checker.png` |
+| ![Result](demo/result.png) | ![Phone Checker](demo/phone-checker.png) |
 
 <details>
 <summary>📝 Markdown reference (click to expand)</summary>
 
 ```markdown
-![Home](screenshots/home.png)
-![Text Analysis](screenshots/text-analysis.png)
-![OCR Analysis](screenshots/ocr-analysis.png)
-![Result](screenshots/result.png)
+![Screenshot Analyzer](demo/screenshot-analyzer.png)
+![Text Analysis](demo/text-analysis.png)
+![Result](demo/result.png)
+![Phone Checker](demo/phone-checker.png)
 ```
 
 </details>
@@ -225,12 +224,12 @@ The app will open automatically at `http://localhost:8501`.
 ## 🎥 Demo
 
 <p align="center">
-<img src="screenshots/demo.gif" width="850" alt="ChildSafe AI demo showing text and screenshot analysis">
+<img src="demo/demo.gif" width="850" alt="ChildSafe AI demo showing text and screenshot analysis">
 </p>
 
 > 🎬 **To add your own demo:**
 > 1. Record a short screen capture of the app in action (tools like [ScreenToGif](https://www.screentogif.com/) or [Kap](https://getkap.co/) work well)
-> 2. Save it as `screenshots/demo.gif` (keep it under ~10MB for fast GitHub loading)
+> 2. Save it as `demo/demo.gif` (keep it under ~10MB for fast GitHub loading)
 > 3. The embed above will render automatically once the file is in place
 
 ---
