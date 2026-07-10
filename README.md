@@ -211,4 +211,8 @@ https://www.linkedin.com/in/aashi-singh-553494330/
 
 ---
 
-# ⭐ If you found this project useful, consider giving it a Star!
+# 📄 License
+
+This project is licensed under the MIT License.
+
+See the [LICENSE](LICENSE) file for details.
