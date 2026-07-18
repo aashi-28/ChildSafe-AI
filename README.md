@@ -221,19 +221,6 @@ The app will open automatically at `http://localhost:8501`.
 
 ---
 
-## 🎥 Demo
-
-<p align="center">
-<img src="demo/demo.gif" width="850" alt="ChildSafe AI demo showing text and screenshot analysis">
-</p>
-
-> 🎬 **To add your own demo:**
-> 1. Record a short screen capture of the app in action (tools like [ScreenToGif](https://www.screentogif.com/) or [Kap](https://getkap.co/) work well)
-> 2. Save it as `demo/demo.gif` (keep it under ~10MB for fast GitHub loading)
-> 3. The embed above will render automatically once the file is in place
-
----
-
 ## 📊 Model Evaluation
 
 The machine learning models were evaluated using:
@@ -270,8 +257,6 @@ Comparing multiple classifiers helps determine the most suitable model for each 
 ---
 
 ## 🤝 Contributing
-
-Contributions are welcome! To contribute:
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/your-feature`)
