@@ -195,6 +195,11 @@ The app will open automatically at `http://localhost:8501`.
 3. Paste a conversation or upload a chat screenshot
 4. Click **Analyze**
 5. Review the predicted threat category and risk level in the results panel
+   
+---
+
+## 🚀 Live Demo
+[https://childsafe-ai-nceyyb4fw3zzvxjve4xywu.streamlit.app/](https://childsafe-ai-nceyyb4fw3zzvxjve4xywu.streamlit.app/)
 
 ---
 
