@@ -286,34 +286,26 @@ def ml_predict(text: str, models: dict):
     return results
 
 # ─────────────────────────────────────────────────────────────────────────────
-# OCR
+# OCR  (EasyOCR — pure Python, works on Streamlit Community Cloud)
 # ─────────────────────────────────────────────────────────────────────────────
+@st.cache_resource(show_spinner=False)
+def load_ocr_reader():
+    """
+    Loads the EasyOCR reader once and caches it across reruns.
+    EasyOCR ships its own recognition models (downloaded on first run)
+    and needs no external system binary like Tesseract, so it works
+    out-of-the-box on Streamlit Community Cloud.
+    """
+    import easyocr
+    return easyocr.Reader(["en"], gpu=False)
+
 def extract_text_ocr(image: Image.Image) -> str:
     try:
-        import os
-        import pytesseract
-
-        possible_paths = [
-            r"C:\Program Files\Tesseract-OCR\tesseract.exe",
-            r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe",
-        ]
-
-        found = False
-        for path in possible_paths:
-            if os.path.exists(path):
-                pytesseract.pytesseract.tesseract_cmd = path
-                found = True
-                break
-
-        if not found:
-            return "[OCR Error: Tesseract not installed]"
-
-        text = pytesseract.image_to_string(image, lang="eng")
-        return text.strip()
-
-    except ImportError:
-        return "[pytesseract not installed]"
-
+        reader = load_ocr_reader()
+        # EasyOCR expects a numpy array
+        result = reader.readtext(np.array(image), detail=0, paragraph=True)
+        text = "\n".join(result).strip()
+        return text if text else "[No text detected in image]"
     except Exception as e:
         return f"[OCR Error: {e}]"
 
@@ -541,7 +533,20 @@ with st.sidebar:
         ["Best Available (Auto)", "LR_TF-IDF", "RF_TF-IDF", "LR_Count", "RF_Count"],
     )
 
-    numverify_key = "43e76592d663b916d59600dbb9972941"
+    # ── API key: read from Streamlit Secrets, never hardcoded in source ──
+    # Locally: create .streamlit/secrets.toml with:
+    #     NUMVERIFY_API_KEY = "your-key-here"
+    # On Streamlit Community Cloud: set this in
+    #     App settings -> Secrets, using the same TOML format.
+    numverify_key = st.secrets.get("NUMVERIFY_API_KEY", "")
+
+    if not numverify_key:
+        numverify_key = st.text_input(
+            "NumVerify API Key (optional, session-only)",
+            type="password",
+            help="Not set in Secrets. You can paste a key here for this "
+                 "session only — it will not be saved or shared.",
+        )
 
     st.markdown("---")
     st.markdown("### 📖 Quick Guide")
@@ -623,7 +628,7 @@ with tab1:
         col_a, col_b = st.columns(2)
         with col_a:
             if st.button("🔍 Extract Text (OCR)", use_container_width=True):
-                with st.spinner("Running OCR…"):
+                with st.spinner("Running OCR… (first run downloads the model, ~15s)"):
                     ocr_text = extract_text_ocr(image)
                 st.session_state["ocr_text_tab1"] = ocr_text
 
@@ -687,7 +692,7 @@ with tab3:
     st.markdown(
         "Validate an unknown or suspicious phone number using **NumVerify API**. "
         "Get a free API key (100 checks/month) at [numverify.com](https://numverify.com) "
-        "and paste it in the sidebar."
+        "and add it to Streamlit Secrets (see sidebar)."
     )
 
     phone_col, btn_col = st.columns([3, 1])
@@ -709,7 +714,8 @@ with tab3:
                 "1. Go to [numverify.com](https://numverify.com)\n"
                 "2. Sign up free\n"
                 "3. Copy your API key\n"
-                "4. Paste it in the **sidebar** under NumVerify API Key"
+                "4. Add it to **Streamlit Secrets** as `NUMVERIFY_API_KEY`, "
+                "or paste it in the sidebar for this session."
             )
         else:
             with st.spinner("Validating number…"):
